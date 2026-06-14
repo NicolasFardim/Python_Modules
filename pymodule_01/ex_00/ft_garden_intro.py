@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-def main():
+def main() -> None:
     print('=== Welcome to My Garden ===')
     print('Plant: Rose')
     print('Height: 25cm')
