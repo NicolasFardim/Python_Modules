@@ -13,7 +13,8 @@ class Plant:
             self._calls = {'grow': 0, 'age': 0, 'show': 0}
 
         def display_stats(self) -> None:
-            print(f'Stats: {self._calls['grow']} grow, {self._calls['age']} age, {self._calls['show']} show')
+            print(f'Stats: {self._calls['grow']} grow, {self._calls['age']} '
+                  f'age, {self._calls['show']} show')
 
         def increment(self, call_type: str) -> None:
             self._calls[call_type] += 1
@@ -68,7 +69,8 @@ class Plant:
 
 
 class Flower(Plant):
-    def __init__(self, name: str, height: float | int, age: int, color: str) -> None:
+    def __init__(self, name: str, height: float | int,
+                 age: int, color: str) -> None:
         self._color = color
         self._bloomed = False
         super().__init__(name, height, age)
@@ -91,7 +93,8 @@ class Flower(Plant):
 
 
 class Seed(Flower):
-    def __init__(self, name: str, height: float | int, age: int, color: str) -> None:
+    def __init__(self, name: str, height: float | int,
+                 age: int, color: str) -> None:
         self._seed_quantity = 0
         super().__init__(name, height, age, color)
 
@@ -110,7 +113,8 @@ class Seed(Flower):
 
 
 class Tree(Plant):
-    def __init__(self, name: str, height: float | int, age: int, trunk_diameter: float | int) -> None:
+    def __init__(self, name: str, height: float | int, age: int,
+                 trunk_diameter: float | int) -> None:
         self._trunk_diameter = trunk_diameter
         super().__init__(name, height, age)
 
@@ -130,7 +134,8 @@ class Tree(Plant):
     def produce_shade(self) -> None:
         self._stats.increment('shade')
         print(f'[Asking {self._name} to produce shade]')
-        print(f'Tree {self._name} now produces a shade of {self._height:.1f}cm long '
+        print(f'Tree {self._name} now produces a shade '
+              f'of {self._height:.1f}cm long '
               f'and {self._trunk_diameter:.1f}cm wide')
 
 

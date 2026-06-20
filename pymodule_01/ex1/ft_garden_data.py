@@ -12,7 +12,7 @@ def main() -> None:
     rose = Plant('Rose', 25, 30)
     cactus = Plant('Cactus', 15, 120)
     sunflower = Plant('Sunflower', 80, 45)
-    print(f'=== Garden Plant Registry ===')
+    print('=== Garden Plant Registry ===')
     rose.show()
     sunflower.show()
     cactus.show()

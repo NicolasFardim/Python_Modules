@@ -2,9 +2,12 @@
 
 def main() -> None:
     print('=== Welcome to My Garden ===')
-    print('Plant: Rose')
-    print('Height: 25cm')
-    print('Age: 30 days')
+    name: str = 'Rose'
+    height: float | int = 25
+    age: int = 30
+    print(f'Plant: {name}')
+    print(f'Height: {height:.1f}cm')
+    print(f'Age: {age} days')
     print('\n=== End of Program ===')
 
 
