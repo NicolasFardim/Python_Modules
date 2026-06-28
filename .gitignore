@@ -2,4 +2,5 @@
 **/test*.py
 pymodule_00/main.py
 __pycache__/
- *.pyc
+*.pyc
+**/*.txt
