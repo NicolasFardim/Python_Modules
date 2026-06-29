@@ -2,8 +2,14 @@ import math
 
 
 def get_player_pos() -> tuple[float, float, float]:
+    x: float = 0
+    y: float = 0
+    z: float = 0
     while True:
         try:
+            str_x: str
+            str_y: str
+            str_z: str
             str_x, str_y, str_z = input("Enter new coordinates as floats in "
                                         "format 'x,y,z': ").split(',')
         except ValueError:
@@ -16,7 +22,7 @@ def get_player_pos() -> tuple[float, float, float]:
             break
         except ValueError as e:
             print(f'Error on parameter "{bad_coord.strip()}": {e}')  # noqa
-    return x, y, z  # noqa
+    return x, y, z
 
 
 def distance_points(set_one: tuple[float, float, float], set_two: tuple[float, float, float]) -> float:

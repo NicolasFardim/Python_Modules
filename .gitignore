@@ -4,3 +4,4 @@ pymodule_00/main.py
 __pycache__/
 *.pyc
 **/*.txt
+**/blocked/

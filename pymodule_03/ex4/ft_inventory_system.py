@@ -1,7 +1,7 @@
 import sys
 
 
-def parse_args() -> dict:
+def parse_args() -> dict[str, int]:
     bag: dict[str, int] = {}
     for item in sys.argv[1:]:
         if ':' not in item:
@@ -49,7 +49,7 @@ def ft_min(bag: dict[str, int]) -> str:
     return item
 
 
-def main():
+def main() -> None:
     bag: dict[str, int] = parse_args()
     if bag:
         print('Got inventory:', bag)

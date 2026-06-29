@@ -11,14 +11,13 @@ def print_content(content: str) -> None:
 def access_data() -> str | None:
     filename: str = sys.argv[1]
     try:
-        print(f"Accessing file: '{sys.argv[1]}'")
+        print('Accessing file:', sys.argv[1])
         file: typing.IO[str] = open(filename, 'r')
     except OSError as e:
-        print(f"Error opening file '{filename}':", e)
+        sys.stderr.write(f'[STDERR] Error opening file {filename}: {e}\n')
         return None
     content: str = file.read()
     file.close()
-    print(f"File '{sys.argv[1]}' closed")
     return content
 
 
@@ -29,7 +28,8 @@ def transform_data(content: str) -> str:
 
 
 def save_data(content: str) -> None:
-    new_filename = input('Enter new file name (or empty): ')
+    sys.stdout.write('Enter new file name (or empty): ')
+    new_filename = sys.stdin.readline().rstrip('\n')
     if not new_filename:
         print('Not saving data')
         return
@@ -37,7 +37,7 @@ def save_data(content: str) -> None:
         print(f"saving data to '{new_filename}'")
         new_file: typing.IO[str] = open(new_filename, 'w')
     except OSError as e:
-        print(f"Error '{new_filename}': {e}")
+        sys.stderr.write(f"[STDERR] '{new_filename}': {e}\n")
         return
     new_file.write(content)
     new_file.close()
@@ -45,7 +45,7 @@ def save_data(content: str) -> None:
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print(f'Usage: {sys.argv[0]} <file>')
+        sys.stderr.write(f'[STDERR] Usage: {sys.argv[0]} <file>\n')
         return
 
     print('=== Cyber Archives Recovery & Preservation ===')
@@ -53,6 +53,7 @@ def main() -> None:
     content: str | None = access_data()
     if content is None:
         return
+    print(f"File '{sys.argv[1]}' closed")
     print_content(content)
 
     # receive content and insert # in the end of each line

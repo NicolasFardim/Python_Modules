@@ -4,16 +4,16 @@ import typing
 
 def main() -> None:
     if len(sys.argv) != 2:
-        print('Usage: ft_ancient_text.py <file>')
+        print(f'Usage: {sys.argv[0]} <file>')
         return
 
     filename: str = sys.argv[1]
     print('=== Cyber Archives Recovery ===')
     try:
-        print('Accessioning file:', filename)
+        print(f"Accessing file: '{filename}'")
         file: typing.IO[str] = open(filename, 'r')
     except OSError as e:
-        print(f"Error opening file {filename}:", e)
+        print(f"Error opening file '{filename}': {e}")
         return
 
     print('---\n')

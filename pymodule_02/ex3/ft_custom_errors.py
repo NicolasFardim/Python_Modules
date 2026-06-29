@@ -23,7 +23,7 @@ def garden_plants(plant: str = 'Tomato', flourishing: bool = False) -> None:
         raise PlantError(f"{plant} is wilting")
 
 
-def main():
+def main() -> None:
     print('=== Custom Garden Errors Demo ===')
     print('\nTesting PlantError')
     try:

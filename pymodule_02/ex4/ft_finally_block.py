@@ -33,7 +33,7 @@ def test_watering_system(plants: list) -> None:
         print('closing watering system')
 
 
-def main():
+def main() -> None:
     print('Testing valid plants...')
     test_watering_system(['Tomato', 'Lettuce', 'Carrots'])
     print('\nTesting invalid plants...')

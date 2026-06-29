@@ -15,7 +15,7 @@ def gen_player_achievements() -> set:
     return set(random.sample(achievements, n))
 
 
-def main():
+def main() -> None:
     alice = gen_player_achievements()
     bob = gen_player_achievements()
     charlie = gen_player_achievements()
