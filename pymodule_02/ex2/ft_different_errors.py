@@ -1,17 +1,13 @@
 def garden_operations(operation_number: int) -> None:
     match operation_number:
         case 0:
-            num: int = int('abc')
+            int('abc')
         case 1:
-            n1: int = 1
-            n2: int = 0
-            div = n1 / n2
+            1 / 0 # noqa
         case 2:
             open(file='/non/existent/file')
         case 3:
-            name: str = 'Nicolas'
-            age: int = 19
-            name + age
+            'Nome' + 20  # type: ignore[operator] # noqa
         case _:
             return
 
@@ -23,7 +19,11 @@ def test_error_types() -> None:
         try:
             print('Testing operation', op)
             garden_operations(op)
-        except (ValueError, ZeroDivisionError, FileNotFoundError, TypeError) as e:
+        except (
+                ValueError,
+                ZeroDivisionError,
+                FileNotFoundError,
+                TypeError) as e:
             print('Caught:', e)
         print('Operation completed successfully')
         op += 1

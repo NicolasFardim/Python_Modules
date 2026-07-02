@@ -1,8 +1,8 @@
 import random
 import typing
 
-players: list = ['dylan', 'alice', 'bob', 'charlie']
-actions: list = ['run', 'eat', 'sleep', 'grab', 'move', 'climb', 'swim']
+players: list[str] = ['dylan', 'alice', 'bob', 'charlie']
+actions: list[str] = ['run', 'eat', 'sleep', 'grab', 'move', 'climb', 'swim']
 
 
 def gen_event() -> typing.Generator[tuple[str, str], None, None]:
@@ -10,7 +10,8 @@ def gen_event() -> typing.Generator[tuple[str, str], None, None]:
         yield random.choice(players), random.choice(actions)
 
 
-def consume_events(events: list[tuple[str, str]]) -> typing.Generator[tuple[str, str], None, None]:
+def consume_events(events: list[tuple[str, str]]) \
+        -> typing.Generator[tuple[str, str], None, None]:
     while events:
         index: int = random.randint(0, len(events) - 1)
         item: tuple[str, str] = events[index]

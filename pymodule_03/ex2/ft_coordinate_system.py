@@ -18,14 +18,19 @@ def get_player_pos() -> tuple[float, float, float]:
         try:
             for bad_coord in (str_x, str_y, str_z):
                 float(bad_coord.strip())
-            x, y, z = round(float(str_x), 1), round(float(str_y), 1), round(float(str_z), 1)
+            x, y, z = (
+                round(float(str_x), 1),
+                round(float(str_y), 1),
+                round(float(str_z), 1)
+            )
             break
         except ValueError as e:
             print(f'Error on parameter "{bad_coord.strip()}": {e}')  # noqa
     return x, y, z
 
 
-def distance_points(set_one: tuple[float, float, float], set_two: tuple[float, float, float]) -> float:
+def distance_points(set_one: tuple[float, float, float],
+                    set_two: tuple[float, float, float]) -> float:
     distance = math.sqrt((set_two[0] - set_one[0]) ** 2
                          + (set_two[1] - set_one[1]) ** 2
                          + (set_two[2] - set_one[2]) ** 2)

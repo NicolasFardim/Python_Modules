@@ -8,7 +8,7 @@ achievements: tuple[str, ...] = (  # noqa
 )
 
 
-def gen_player_achievements() -> set:
+def gen_player_achievements() -> set[str]:
     n: int = int(
         random.triangular(0, len(achievements) + 1, len(achievements) / 2)
     )

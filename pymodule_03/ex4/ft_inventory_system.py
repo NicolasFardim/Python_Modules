@@ -54,7 +54,8 @@ def main() -> None:
     if bag:
         print('Got inventory:', bag)
         print('Item list:', list(bag.keys()))
-        print(f'Total quantity of {len(bag.keys())} items: {sum(bag.values())}')
+        print(f'Total quantity of {len(bag.keys())} '
+              f'items: {sum(bag.values())}')
         for key in bag:
             percentage = round(bag[key] / sum(bag.values()) * 100, 1)
             print(f"Item {key} represents {percentage}%")
