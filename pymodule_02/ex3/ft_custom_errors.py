@@ -1,16 +1,14 @@
 class GardenError(Exception):
-    def __init__(self, msg: str = 'Unknow plant error') -> None:
-        msg: str = msg
+    def __init__(self, msg: str = "Unknow plant error") -> None:
+        self.args = (msg,)
 
 
 class PlantError(GardenError):
-    def __init__(self, msg: str = "Unknow plant error") -> None:
-        msg: str = msg
+    pass
 
 
 class WaterError(GardenError):
-    def __init__(self, msg: str = "Unknow plant error") -> None:
-        msg: str = msg
+    pass
 
 
 def water_tank(liter: int = 20) -> None:
