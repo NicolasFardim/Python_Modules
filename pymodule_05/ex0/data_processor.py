@@ -24,12 +24,13 @@ class NumericProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
         if isinstance(data, (int, float)):
             return True
-        if isinstance(data, list):
+        elif isinstance(data, list):
             for element in data:
                 if not isinstance(element, (int, float)):
                     return False
             return True
-        return False
+        else:
+            return False
 
     def ingest(self, data: int | float | list[int | float]) -> None:
         if self.validate(data):
@@ -46,12 +47,13 @@ class TextProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
         if isinstance(data, str):
             return True
-        if isinstance(data, list):
+        elif isinstance(data, list):
             for element in data:
                 if not isinstance(element, str):
                     return False
             return True
-        return False
+        else:
+            return False
 
     def ingest(self, data: str | list[str]) -> None:
         if self.validate(data):
@@ -71,7 +73,7 @@ class LogProcessor(DataProcessor):
                 if not isinstance(key, str) or not isinstance(value, str):
                     return False
             return True
-        if isinstance(data, list):
+        elif isinstance(data, list):
             for element in data:
                 if not isinstance(element, dict):
                     return False
@@ -79,7 +81,8 @@ class LogProcessor(DataProcessor):
                     if not isinstance(key, str) or not isinstance(value, str):
                         return False
             return True
-        return False
+        else:
+            return False
 
     def ingest(self, data: dict[str, str] | list[dict[str, str]]) -> None:
         if self.validate(data):
