@@ -18,7 +18,7 @@ def water_plan(plant_name: str) -> None:
         print(f'Watering {plant_name}: [OK]')
 
 
-def test_watering_system(plants: list) -> None:
+def test_watering_system(plants: list[str]) -> None:
     print('Opening watering system')
     try:
         for plant in plants:

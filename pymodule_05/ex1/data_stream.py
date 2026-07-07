@@ -10,13 +10,13 @@ class DataProcessor(ABC):
         self._rank: int = -1
         self._total: int = 0
 
-    def get_data(self):
+    def get_data(self) -> list[str]:
         return self._data
 
-    def get_total(self):
+    def get_total(self) -> int:
         return self._total
 
-    def get_name(self):
+    def get_name(self) -> str:
         return self._name
 
     @abstractmethod
@@ -129,7 +129,8 @@ class DataStream:
                     process.ingest(data)
                     break
             else:
-                print("DataStream error - Can't process element in stream:", data)
+                print("DataStream error - "
+                      "Can't process element in stream:", data)
 
     def print_processors_stats(self) -> None:
         print("=== DataStream statistics ===")
@@ -151,8 +152,10 @@ def main() -> None:
     data_batch1 = [
         'Hello world',
         [3.14, -1, 2.71],
-        [{'log_level': 'WARNING', 'log_message': 'Telnet access! Use ssh instead'},
-         {'log_level': 'INFO', 'log_message': 'User wil is connected'}],
+        [{'log_level': 'WARNING',
+          'log_message': 'Telnet access! Use ssh instead'},
+         {'log_level': 'INFO', 'log_message': 'User wil is connected'}
+         ],
         42,
         ['Hi', 'five']
     ]
@@ -176,8 +179,8 @@ def main() -> None:
     data_stream.register_processor(log_proc)
     data_stream.process_stream(data_batch1)
     data_stream.print_processors_stats()
-    print("\nConsume some elements from the data processors:"
-          " Numeric 3, Text 2, Log 1")
+    print("\nConsume some elements from the data "
+          "processors: Numeric 3, Text 2, Log 1")
     num_proc.consume(3)
     text_proc.consume(2)
     log_proc.output()

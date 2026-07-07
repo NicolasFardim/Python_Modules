@@ -146,7 +146,8 @@ class DataStream:
                     process.ingest(data)
                     break
             else:
-                print("DataStream error - Can't process element in stream:", data)
+                print("DataStream error - "
+                      "Can't process element in stream:", data)
 
     def print_processors_stats(self) -> None:
         print("=== DataStream statistics ===")
@@ -179,8 +180,10 @@ def main() -> None:
     data_batch1: list[typing.Any] = [
         'Hello world',
         [3.14, -1, 2.71],
-        [{'log_level': 'WARNING', 'log_message': 'Telnet access! Use ssh instead'},
-         {'log_level': 'INFO', 'log_message': 'User wil is connected'}],
+        [{'log_level': 'WARNING',
+          'log_message': 'Telnet access! Use ssh instead'},
+         {'log_level': 'INFO',
+          'log_message': 'User wil is connected'}],
         42,
         ['Hi', 'five']
     ]

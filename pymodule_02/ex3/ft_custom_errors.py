@@ -13,7 +13,7 @@ class WaterError(GardenError):
 
 def water_tank(liter: int = 20) -> None:
     if liter < 30:
-        raise WaterError(f"Not enough water in the tank!")
+        raise WaterError("Not enough water in the tank!")
 
 
 def garden_plants(plant: str = 'Tomato', flourishing: bool = False) -> None:
