@@ -21,7 +21,7 @@ def consume_events(events: list[tuple[str, str]]) \
 
 def main() -> None:
     generator: typing.Generator[tuple[str, str], None, None] = gen_event()
-    for i in range(0, 10):
+    for i in range(0, 1000):
         event: tuple[str, str] = next(generator)
         print(f'Event {i}: Player {event[0]} did action {event[1]}')
 

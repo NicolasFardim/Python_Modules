@@ -9,6 +9,8 @@ def parse_args() -> dict[str, int]:
             continue
         try:
             key, value = item.split(':')
+            if not key:
+                raise ValueError(f"Error - Empty key '{item}'")
         except ValueError as e:
             print(e)
             continue
