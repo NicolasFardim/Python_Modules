@@ -22,11 +22,14 @@ class DataProcessor(ABC):
 
 class NumericProcessor(DataProcessor):
     def validate(self, data: typing.Any) -> bool:
+        if isinstance(data, bool):
+            return False
         if isinstance(data, (int, float)):
             return True
         elif isinstance(data, list):
             for element in data:
-                if not isinstance(element, (int, float)):
+                if (not isinstance(element, (int, float)) or
+                        isinstance(element, bool)):
                     return False
             return True
         else:
