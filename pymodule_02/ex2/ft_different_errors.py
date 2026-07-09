@@ -1,9 +1,13 @@
+# Using magic comments to disable warnings, for better visual
+# Subject explicitly asks to let the errors in, remove magic comments
+# before delivering project
+
 def garden_operations(operation_number: int) -> None:
     match operation_number:
         case 0:
             int('abc')
         case 1:
-            1 / 0 # noqa
+            1 / 0  # noqa
         case 2:
             open(file='/non/existent/file')
         case 3:
