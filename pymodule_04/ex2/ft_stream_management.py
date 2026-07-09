@@ -29,7 +29,9 @@ def transform_data(content: str) -> str:
 
 def save_data(content: str) -> None:
     sys.stdout.write('Enter new file name (or empty): ')
+    sys.stdout.flush()
     new_filename = sys.stdin.readline().rstrip('\n')
+
     if not new_filename:
         print('Not saving data')
         return
