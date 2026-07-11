@@ -1,17 +1,22 @@
 from abc import ABC, abstractmethod
 
+from ex0.interface import Creature
+
 
 class HealCapability(ABC):
     @abstractmethod
-    def heal(self):
+    def heal(self, target: Creature | None = None) -> str:
         ...
 
 
 class TransformCapability(ABC):
-    @abstractmethod
-    def transform(self):
-        pass
+    def __init__(self) -> None:
+        self._transformed: bool = False
 
     @abstractmethod
-    def revert(self):
+    def transform(self) -> Creature:
+        ...
+
+    @abstractmethod
+    def revert(self) -> Creature:
         ...

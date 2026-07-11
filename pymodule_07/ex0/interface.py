@@ -3,8 +3,8 @@ from abc import ABC, abstractmethod
 
 class Creature(ABC):
     def __init__(self, name: str, creature_type: str) -> None:
-        self._name = name
-        self._creature_type = creature_type
+        self._name: str = name
+        self._creature_type: str = creature_type
 
     @abstractmethod
     def attack(self) -> str:
