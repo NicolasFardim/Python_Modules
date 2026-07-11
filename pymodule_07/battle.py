@@ -1,4 +1,4 @@
-from ex0 import CreatureFactory, FlameFactory
+from ex0 import CreatureFactory, FlameFactory, AquaFactory
 
 
 def test_factory(creature_factory: CreatureFactory) -> None:
@@ -15,10 +15,27 @@ def test_factory(creature_factory: CreatureFactory) -> None:
         print(creature_evolved.attack())
 
 
-def main():
+def test_battle(fire_factory, aqua_factory: AquaFactory) -> None:
+    print("Testing factory")
+    fire_creature = fire_factory.create_base()
+    aqua_creature = aqua_factory.create_base()
+    print(fire_creature.describe())
+    print("vs.")
+    print(aqua_creature.describe())
+    print("fight!")
+    print(fire_creature.attack())
+    print(aqua_creature.attack())
+
+
+def main() -> None:
     fire_factory = FlameFactory()
+    aqua_factory = AquaFactory()
 
     test_factory(fire_factory)
+    print()
+    test_factory(aqua_factory)
+    print()
+    test_battle(fire_factory, aqua_factory)
 
 
 if __name__ == '__main__':
