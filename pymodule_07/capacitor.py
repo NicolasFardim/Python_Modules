@@ -1,45 +1,46 @@
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
 
 
-def test_heal_creatures(factory: HealingCreatureFactory):
-    sproutling = factory.create_base()
-    bloomelle = factory.create_evolved()
-    print("Testing Creature with Healing capability")
-    print(sproutling.describe())
-    print(sproutling.attack())
-    print(sproutling.heal())
-    print(sproutling.heal(bloomelle))
-    print(" evolved:")
-    print(bloomelle.describe())
-    print(bloomelle.attack())
-    print(bloomelle.heal())
-    print(bloomelle.heal(sproutling))
+def test_healing(factory: HealingCreatureFactory) -> None:
+    print("Testing Creature with healing capability")
+
+    base = factory.create_base()
+    print("base:")
+    print(base.describe())
+    print(base.attack())
+    print(base.heal())
+
+    evolved = factory.create_evolved()
+    print("evolved:")
+    print(evolved.describe())
+    print(evolved.attack())
+    print(evolved.heal())
 
 
-def test_transform_creatures(transform_factory: TransformCreatureFactory):
-    shiftling = transform_factory.create_base()
-    morphagon = transform_factory.create_evolved()
-    print("Testing Creature with Transformation capability")
-    print(shiftling.describe())
-    print(shiftling.attack())
-    shiftling.transform()
-    print(shiftling.attack())
-    shiftling.revert()
-    print(" evolved:")
-    print(morphagon.describe())
-    print(morphagon.attack())
-    morphagon.transform()
-    print(morphagon.attack())
-    morphagon.revert()
+def test_transform(factory: TransformCreatureFactory) -> None:
+    print("Testing Creature with transform capability")
+
+    base = factory.create_base()
+    print("base:")
+    print(base.describe())
+    print(base.attack())
+    print(base.transform())
+    print(base.attack())
+    print(base.revert())
+
+    evolved = factory.create_evolved()
+    print("evolved:")
+    print(evolved.describe())
+    print(evolved.attack())
+    print(evolved.transform())
+    print(evolved.attack())
+    print(evolved.revert())
 
 
-def main():
-    heal_factory = HealingCreatureFactory()
-    transform_factory = TransformCreatureFactory()
-
-    test_heal_creatures(heal_factory)
+def main() -> None:
+    test_healing(HealingCreatureFactory())
     print()
-    test_transform_creatures(transform_factory)
+    test_transform(TransformCreatureFactory())
 
 
 if __name__ == '__main__':

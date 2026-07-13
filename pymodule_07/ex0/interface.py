@@ -6,6 +6,9 @@ class Creature(ABC):
         self._name: str = name
         self._creature_type: str = creature_type
 
+    def get_name(self) -> str:
+        return self._name
+
     @abstractmethod
     def attack(self) -> str:
         ...
@@ -15,6 +18,12 @@ class Creature(ABC):
 
 
 class CreatureFactory(ABC):
+    def __init__(self, factory_name) -> None:
+        self._factory_name = factory_name
+
+    def get_name(self) -> str:
+        return self._factory_name
+
     @abstractmethod
     def create_base(self) -> Creature:
         ...

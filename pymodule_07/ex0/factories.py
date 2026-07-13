@@ -3,6 +3,9 @@ from .interface import CreatureFactory
 
 
 class FlameFactory(CreatureFactory):
+    def __init__(self) -> None:
+        super().__init__("Flameling")
+
     def create_base(self) -> Flameling:
         return Flameling()
 
@@ -11,6 +14,9 @@ class FlameFactory(CreatureFactory):
 
 
 class AquaFactory(CreatureFactory):
+    def __init__(self) -> None:
+        super().__init__("Aquabub")
+
     def create_base(self) -> Aquabub:
         return Aquabub()
 

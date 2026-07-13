@@ -32,7 +32,7 @@ class Bloomelle(Creature, HealCapability):
 
 class Shiftling(Creature, TransformCapability):
     def __init__(self) -> None:
-        super().__init__("Shiftling", "Normal")
+        Creature.__init__(self, "Shiftling", "Normal")
         TransformCapability.__init__(self)
 
     def attack(self) -> str:
@@ -41,18 +41,18 @@ class Shiftling(Creature, TransformCapability):
         else:
             return f"{self._name} performs a boosted strike!"
 
-    def transform(self) -> None:
-        print(f"{self._name} shifts into a sharper form")
+    def transform(self) -> str:
         self._transformed = True
+        return f"{self._name} shifts into a sharper form"
 
-    def revert(self) -> None:
-        print(f"{self._name} returns to normal")
+    def revert(self) -> str:
         self._transformed = False
+        return f"{self._name} returns to normal"
 
 
 class Morphagon(Creature, TransformCapability):
     def __init__(self) -> None:
-        super().__init__("Morphagon", "Normal/Dragon")
+        Creature.__init__(self, "Morphagon", "Normal/Dragon")
         TransformCapability.__init__(self)
 
     def attack(self) -> str:
@@ -61,10 +61,10 @@ class Morphagon(Creature, TransformCapability):
         else:
             return f"{self._name} unleashes a devastating morph strike!"
 
-    def transform(self) -> None:
-        print(f"{self._name} morphs into a dragonic battle form")
+    def transform(self) -> str:
         self._transformed = True
+        return f"{self._name} morphs into a dragonic battle form"
 
-    def revert(self) -> None:
-        print(f"{self._name} stabilizes its form")
+    def revert(self) -> str:
         self._transformed = False
+        return f"{self._name} stabilizes its form"

@@ -14,9 +14,9 @@ class TransformCapability(ABC):
         self._transformed: bool = False
 
     @abstractmethod
-    def transform(self) -> Creature:
+    def transform(self) -> str:
         ...
 
     @abstractmethod
-    def revert(self) -> Creature:
+    def revert(self) -> str:
         ...
