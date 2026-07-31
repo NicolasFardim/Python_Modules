@@ -1,5 +1,5 @@
 import importlib
-
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 import requests
@@ -22,19 +22,18 @@ def check_dependencies():
         print(e)
 
 
-def request_data() -> requests.Response:
-    url = "https://dummyjson.com/users"
-    response: requests.Response = requests.get(url)
-
-    if response.status_code == 200:
-        data = response.json()
-    else:
-        print("Failed to fetch data")
+def request_data() -> dict[str, str | float]:
+    url: str = "https://dummyjson.com/users"
+    try:
+        response: requests.Response = requests.get(url)
+        data: dict[str, str | float] = response.json()
+    except requests.exceptions.RequestException as e:
+        print("Error:", e)
         exit()
     return data
 
 
-def extract_data(data: requests.Response) -> tuple[pd.DataFrame, pd.DataFrame]:
+def extract_data(data: dict[str, str | float]) -> tuple[pd.DataFrame, pd.DataFrame]:
     users = data["users"]
     df = pd.DataFrame(users)
 
@@ -47,17 +46,40 @@ def extract_data(data: requests.Response) -> tuple[pd.DataFrame, pd.DataFrame]:
     return small_people, tall_people
 
 
-def analyze(small_people: pd.DataFrame, tall_people: pd.DataFrame) -> tuple[np.float64, np.float64]:
-    average_small = np.mean(small_people["height"])
-    average_tall = np.mean(tall_people["height"])
-    return average_small, average_tall
+def analyze(small_p: pd.DataFrame, tall_p: pd.DataFrame) -> dict[str, float]:
+    analyzed: dict[str, float] = {
+        "average_tall": float(np.mean(tall_p["height"])),
+        "average_small": float(np.mean(small_p["height"])),
+        "smallest": float(np.min(small_p["height"])),
+        "tallest": float(np.max(tall_p["height"])),
+    }
+    return analyzed
+
+
+def save_img(data: dict[str, float]) -> None:
+    plt.title("Avarage size: Small vs Tall", fontweight="bold")
+
+    plt.bar(
+        ["Average Small ( < 1.70) ", "Average Tall ( > 1.80)"],
+        [data["average_small"], data["average_tall"]],
+        color=["red", "green"],
+    )
+    smallest: int = int(data["smallest"])
+    tallest: int = int(data["tallest"])
+    plt.ylim(smallest, tallest + 1)
+    plt.yticks(range(smallest, tallest + 5, 5))
+    plt.ylabel("Height (cm)")
+    plt.savefig('average.png')
+    plt.close()
+    print("Results saved to: average.png")
 
 
 def main():
     print("LOADING STATUS: Loading programs...")
-    data: requests.Response = request_data()
+    check_dependencies()
+    data: dict[str, str | float] = request_data()
     small, tall = extract_data(data)
-    analyze(small, tall)
+    save_img(analyze(small, tall))
 
 
 if __name__ == '__main__':
