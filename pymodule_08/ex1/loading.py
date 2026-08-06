@@ -1,31 +1,62 @@
 import importlib
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import requests
+
+# from typing import TYPE_CHECKING
+# if TYPE_CHECKING:
+#     import pandas as pd
+#     import numpy as np
+#     import matplotlib.pyplot as plt
+#     import requests
 
 
-def check_dependencies():
-    pkgs = {
-        "pandas": "Data manipulation",
-        "numpy": "Numerical computation",
-        "requests": "Network access",
-        "matplotlib": "Visualization"
+np = None
+pd = None
+plt = None
+requests = None
+
+
+def check_dependencies() -> bool:
+    global pd, np, plt, requests
+    pkgs: dict[str, tuple[str, str]] = {
+        "pandas": ("Data manipulation", "3.0.5"),
+        "numpy": ("Numerical computation", "2.5.1"),
+        "requests": ("Network access", "2.34.2"),
+        "matplotlib": ("Visualization", "3.11.1")
     }
-
+    missing = []
+    mods = []
     print("Checking dependencies:")
-    try:
-        for pkg, task in pkgs.items():
-            mod = importlib.import_module(pkg)
-            print(f"[OK] {mod.__name__} ({mod.__version__}) - {task} ready")
-    except ModuleNotFoundError as e:
-        print(e)
+    for pkg, task in pkgs.items():
+        try:
+            mods.append((importlib.import_module(pkg), task[1]))
+            print(f"[OK] {mods[-1][0].__name__} ({mods[-1][0].__version__})"
+                  f" - {task[0]} ready")
+        except ModuleNotFoundError:
+            missing.append(pkg)
+            print(f"[KO] missing {pkg}")
+    if missing:
+        print(f"\nMissing: {missing}"
+              f"\nInstall using pip: pip install -r requirements.txt")
+        return False
+    print()
+    for mod in mods:
+        if mod[0].__version__ != mod[1]:
+            print(f"Warning: package '{mod[0].__name__}' installed version: "
+                  f"{mod[0].__version__} Recommended version: {mod[1]}")
+        if mod[0].__name__ == "pandas":
+            pd = mod[0]
+        if mod[0].__name__ == "numpy":
+            np = mod[0]
+        if mod[0].__name__ == "matplotlib":
+            plt = importlib.import_module("matplotlib.pyplot")
+        if mod[0].__name__ == "requests":
+            requests = mod[0]
+    return True
 
 
 def request_data() -> dict[str, str | float]:
     url: str = "https://dummyjson.com/users"
     try:
-        response: requests.Response = requests.get(url)
+        response = requests.get(url)
         data: dict[str, str | float] = response.json()
     except requests.exceptions.RequestException as e:
         print("Error:", e)
@@ -33,20 +64,17 @@ def request_data() -> dict[str, str | float]:
     return data
 
 
-def extract_data(data: dict[str, str | float]) -> tuple[pd.DataFrame, pd.DataFrame]:
+def analyze(data: dict[str, str | float]) -> dict[str, float]:
     users = data["users"]
     df = pd.DataFrame(users)
 
-    tall_people = df[df["height"] > 180][
+    tall_p = df[df["height"] > 180][
         ["firstName", "lastName", "height"]
     ]
-    small_people = df[df["height"] < 170][
+    small_p = df[df["height"] < 170][
         ["firstName", "lastName", "height"]
     ]
-    return small_people, tall_people
 
-
-def analyze(small_p: pd.DataFrame, tall_p: pd.DataFrame) -> dict[str, float]:
     analyzed: dict[str, float] = {
         "average_tall": float(np.mean(tall_p["height"])),
         "average_small": float(np.mean(small_p["height"])),
@@ -69,17 +97,45 @@ def save_img(data: dict[str, float]) -> None:
     plt.ylim(smallest, tallest + 1)
     plt.yticks(range(smallest, tallest + 5, 5))
     plt.ylabel("Height (cm)")
-    plt.savefig('average.png')
-    plt.close()
-    print("Results saved to: average.png")
+    try:
+        plt.savefig('average.png')
+        print("Results saved to: average.png")
+    except OSError as e:
+        print("Error:", e)
+    finally:
+        plt.close()
 
 
-def main():
+def show_versions() -> None:
+    print("\nInstalled package versions:")
+    pkgs = ["pandas", "numpy", "matplotlib", "requests"]
+    for pkg in pkgs:
+        try:
+            mod = importlib.import_module(pkg)
+            print(f"  {pkg}: {mod.__version__}")
+        except ModuleNotFoundError:
+            print(f"  {pkg}: not installed")
+
+
+def manual() -> None:
+    print("Using pip:")
+    print("Setup venv (recommended): $ python3 -m venv <venv_name>\n"
+          "Activate venv (linux): $ source <venv>/bin/activate\n"
+          "Get the required packages pip install -r requirements.txt\n"
+          "Run loading.py: python3 loading.py")
+
+    print("Using poetry")
+    print("poetry run python3 loading.py")
+
+
+def main() -> None:
     print("LOADING STATUS: Loading programs...")
-    check_dependencies()
-    data: dict[str, str | float] = request_data()
-    small, tall = extract_data(data)
-    save_img(analyze(small, tall))
+    if check_dependencies():
+        data: dict[str, str | float] = request_data()
+        save_img(analyze(data))
+    show_versions()
+    print()
+    manual()
 
 
 if __name__ == '__main__':
