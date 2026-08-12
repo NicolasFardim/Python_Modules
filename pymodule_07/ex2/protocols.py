@@ -4,11 +4,11 @@ from ex0.interface import Creature
 
 
 class NormalCreature(Protocol):
-    def attack(self):
+    def attack(self) -> str:
         ...
 
 
-class AggressiveCreature(NormalCreature):
+class AggressiveCreature(NormalCreature, Protocol):
     def transform(self) -> str:
         ...
 
@@ -16,6 +16,6 @@ class AggressiveCreature(NormalCreature):
         ...
 
 
-class DefensiveCreature(NormalCreature):
+class DefensiveCreature(NormalCreature, Protocol):
     def heal(self, target: Creature | None = None) -> str:
         ...

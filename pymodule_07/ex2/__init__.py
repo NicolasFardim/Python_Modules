@@ -1,4 +1,9 @@
-from .strategies import BattleStrategy, NormalStrategy, AggressiveStrategy, DefensiveStrategy
+from .interface import BattleStrategy
+from .strategies import (
+    NormalStrategy,
+    AggressiveStrategy,
+    DefensiveStrategy
+)
 
 __all__ = [
     'BattleStrategy',

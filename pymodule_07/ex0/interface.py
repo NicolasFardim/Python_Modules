@@ -18,8 +18,8 @@ class Creature(ABC):
 
 
 class CreatureFactory(ABC):
-    def __init__(self, factory_name) -> None:
-        self._factory_name = factory_name
+    def __init__(self, factory_name: str) -> None:
+        self._factory_name: str = factory_name
 
     def get_name(self) -> str:
         return self._factory_name

@@ -1,6 +1,6 @@
 import os
 
-from dotenv import load_dotenv
+from dotenv import load_dotenv  # type: ignore [import-not-found]
 
 
 def load_config() -> dict[str, str | None]:
@@ -15,7 +15,9 @@ def load_config() -> dict[str, str | None]:
     return config_dict
 
 
-def missing_config(config: dict[str, str | None], silence: bool = False) -> bool:
+def missing_config(
+        config: dict[str, str | None], silence: bool = False
+) -> bool:
     check = False
     for key, value in config.items():
         if value is None:

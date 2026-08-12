@@ -1,6 +1,9 @@
 from ex0 import FlameFactory, AquaFactory, CreatureFactory
 from ex1 import HealingCreatureFactory, TransformCreatureFactory
-from ex2 import NormalStrategy, AggressiveStrategy, DefensiveStrategy, BattleStrategy
+from ex2 import (
+    NormalStrategy, AggressiveStrategy,
+    DefensiveStrategy, BattleStrategy
+)
 
 
 def battle(opponents: list[tuple[CreatureFactory, BattleStrategy]]) -> None:

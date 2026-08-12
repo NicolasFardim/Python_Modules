@@ -25,7 +25,8 @@ class Bloomelle(Creature, HealCapability):
 
     def heal(self, target: Creature | None = None) -> str:
         if target:
-            return f"{self._name} heals {target._name} and others for a large amount"
+            return (f"{self._name} heals {target._name} "
+                    f"and others for a large amount")
         else:
             return f"{self._name} heals itself and others for a large amount"
 

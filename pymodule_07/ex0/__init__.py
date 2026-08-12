@@ -1,4 +1,5 @@
-from .factories import CreatureFactory, AquaFactory, FlameFactory
+from .factories import AquaFactory, FlameFactory
+from .interface import CreatureFactory
 
 __all__ = [
     'CreatureFactory',
