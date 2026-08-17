@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from pydantic import BaseModel, Field, ValidationError
+from pydantic import BaseModel, Field, ValidationError  # type: ignore[import-not-found]
 
 
 class SpaceStation(BaseModel):
@@ -41,7 +41,8 @@ def static_test() -> None:
     print(f"\n{'=' * 25}")
     print("Expected validation error:")
     try:
-        # reminder: pydantic validates all fields first, so if it has a bunch of errors
+        # reminder: pydantic validates all fields first,
+        # so if it has a bunch of errors
         # will grab everything and then raise an exception
         wrong_station = SpaceStation(
             station_id="ISS001",
@@ -61,35 +62,42 @@ def static_test() -> None:
 
 def main() -> None:
     try:
-        from pymodule_09.data_generator import SpaceStationGenerator, DataConfig
+        from data_generator import (  # type: ignore[import-not-found, attr-defined]
+            SpaceStationGenerator,
+            DataConfig
+        )
     except ImportError:
         print("Data Generator not available, Using static values\n")
         static_test()
         return
 
-    data_config = DataConfig()
+    data_config = DataConfig()  # type: ignore[attr-defined]
+    space_station_gen = SpaceStationGenerator(data_config)  # type: ignore[attr-defined]
     while True:
         try:
             x = int(input("Choose how many Space Station to generate: "))
         except TypeError as e:
             print("ERROR, closing program:", e)
             return
-        space_station_gen = SpaceStationGenerator(data_config).generate_station_data(x)
+        space_stations = space_station_gen.generate_station_data(x)
 
-        for station in space_station_gen:
+        for station in space_stations:
             print("=" * 25)
             try:
                 space_station = SpaceStation(**station)
-                print("Valid station generated")
+                status = 'Operational' if space_station.is_operational \
+                    else 'Off'
+                notes = space_station.notes if space_station.notes \
+                    else 'Empty'
                 print(
                     f"ID:     {space_station.station_id}\n"
                     f"Name:   {space_station.name}\n"
                     f"Crew:   {space_station.crew_size}\n"
                     f"Power:  {space_station.power_level}\n"
                     f"Oxygen: {space_station.oxygen_level}\n"
-                    f"Status: {'Operational' if space_station.is_operational else 'Off'}\n"
+                    f"Status: {status}\n"
                     f"Last maintenance: {space_station.last_maintenance}\n"
-                    f"Notes:  {space_station.notes if space_station.notes else 'Empty'}\n"
+                    f"Notes: {notes}\n"
                 )
             except ValidationError as e:
                 print("Invalid station generated")
@@ -110,7 +118,8 @@ def main() -> None:
                     print("Invalid input!")
                     continue
 
-        seed = input(f"Change seed (current seed = {data_config.seed})? (enter to not modify)\n")
+        seed = input(f"Change seed (current seed = {data_config.seed})?"
+                     f" (enter to not modify)\n")
         if seed == '':
             continue
         try:
